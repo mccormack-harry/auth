@@ -88,8 +88,7 @@ func (s *Service) Authenticate(ctx context.Context, token string) (*dto.User, *d
 func (s *Service) ForgotPassword(ctx context.Context, req *dto.ForgotPasswordRequest) error {
 	user, err := s.UserService.GetByEmail(actorctx.WithSystem(ctx), req.Email)
 	if err != nil {
-		// Don't expose non existent accounts
-		return nil
+		return errors.Wrap(errors.NotFound("user not found"), err)
 	}
 	create := &dto.CreateAuthCode{
 		Email: user.Email,
