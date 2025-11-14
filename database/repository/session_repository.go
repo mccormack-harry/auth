@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mccormack-harry/auth/database/model"
 	"gorm.io/gorm"
@@ -28,7 +27,6 @@ func (r *Session) GetByToken(ctx context.Context, token string) (*model.Session,
 }
 
 func (r *Session) Create(ctx context.Context, s *model.Session) error {
-	fmt.Printf("Creating session: %+v\n", s)
 	db := session.DB(ctx, r.DB).Omit(clause.Associations).Omit("id").Create(s)
 	return errors.New(db.Error)
 }

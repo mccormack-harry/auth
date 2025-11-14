@@ -22,7 +22,10 @@ func NewPassword(db *gorm.DB) *Password {
 
 func (r Password) GetByUserID(ctx context.Context, userID string) (*model.Password, error) {
 	var password *model.Password
-	db := session.DB(ctx, r.DB).Where("user_id = ?", userID).First(&password)
+	db := session.DB(ctx, r.DB).
+		Where("user_id = ?", userID).
+		Order("created_at DESC").
+		First(&password)
 	return password, errors.New(db.Error)
 }
 

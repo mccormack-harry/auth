@@ -22,11 +22,3 @@ type User struct {
 func (User) TableName() string {
 	return "users"
 }
-
-type AdminUser struct {
-	User
-}
-
-func (AdminUser) TableName() string {
-	return "admin_users"
-}

@@ -76,7 +76,6 @@ func (s *Service) Validate(ctx context.Context, email, code string) (*dto.AuthCo
 		if err != nil {
 			return errors.New(err)
 		}
-		fmt.Printf("AuthCode: \n%v+\n", authCode)
 		if !authCode.ExpiresAt.Present || time.Now().After(authCode.ExpiresAt.Val) {
 			return errors.Unauthorized("auth code expired")
 		}

@@ -18,7 +18,7 @@ import (
 
 func init() {
 	config.Register("session.expiry", config.Entry{
-		Value:    int(time.Hour) * 24 * 28, // 1 Month
+		Value:    int((time.Hour * 24 * 28) / time.Second), // 1 Month in seconds
 		Type:     reflect.Int,
 		Required: true,
 	})
@@ -108,5 +108,5 @@ func generateSessionToken() (string, error) {
 
 func (s *Service) getExpiry() time.Time {
 	exp := s.Config.GetInt("session.expiry")
-	return time.Now().Add(time.Duration(exp) * time.Millisecond)
+	return time.Now().Add(time.Duration(exp) * time.Second)
 }
